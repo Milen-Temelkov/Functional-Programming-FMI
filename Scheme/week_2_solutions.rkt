@@ -1,13 +1,21 @@
 #lang racket
 
-;utilities
+;; Utilities
 
 (define // quotient)
+
 (define % remainder)
 
+(define (reverse-num n)
+  (define (rev n rev-n)
+    (if (= 0 n)
+        rev-n
+        (rev (// n 10) (+ (% n 10) (* rev-n 10)))))
+  (rev n 0)
+ )
 
 
-;task 1
+;; Task 1
 
 (define (sum-digits-iter n)
   (define (iter n sum)
@@ -18,7 +26,7 @@
 
 
 
-;task 2
+;; Task 2
 
 (define (count-devisors n)
   (define (iter n dev i)
@@ -31,7 +39,7 @@
 
 
 
-;task 3
+;; Task 3
 
 (define (prime? n)
   (if (= 2 (count-devisors n))
@@ -40,7 +48,7 @@
 
 
 
-;task 4
+;; Task 4
 
 (define (increasing-digits n)
   (define (check n last)
@@ -53,7 +61,7 @@
 
 
 
-;task 5
+;; Task 5
 
 (define (ends-with? n k)
   (define (comp-digits n k)
@@ -71,7 +79,7 @@
 
 
 
-;task 6
+;; Task 6
 
 (define (perfect? n)
   (define (sum-all-divisors n sum i)
@@ -85,34 +93,24 @@
   (sum-all-divisors n 0 1))
 
 
+;; Task 7
 
- ;task 7
-
-(define (binary-to-decimal n)
-  (define (create-dec-num n num i)
-    (if (= n 0)
-        num
-        (create-dec-num (// n 10) (+ num (* (% n 10) (expt 2 i))) (+ i 1))))
-  (create-dec-num n 0 0))
-
+(define (binary-to-decimal bin-n)
+  (define (create-dec-num bin-n dec-n i)
+    (if (= bin-n 0)
+        dec-n
+        (create-dec-num (// bin-n 10) (+ dec-n (* (% bin-n 10) (expt 2 i))) (+ i 1))))
+  (create-dec-num bin-n 0 0))
 
 
-;task 8
 
-(define (reverse-num n)
-  (define (rev n rev-n)
-    (if (= 0 n)
-        rev-n
-        (rev (// n 10) (+ (% n 10) (* rev-n 10)))))
-  (rev n 0)
-  )
-
-    
-(define (decimal-to-binary n)
-  (define (create-bin-num n num i)
-    (if (= n 0)
-        (reverse-num num)
-        (create-bin-num (// n 2) (+ (* num 10) (% n 2)) (+ i 1))))
-  (create-bin-num n 0 0))
+;; Task 8
+ 
+(define (decimal-to-binary dec-n)
+  (define (create-bin-num dec-n bin-n i)
+    (if (= dec-n 0)
+        (// (reverse-num bin-n) 10)
+        (create-bin-num (// dec-n 2) (+ (* 10 bin-n) (% dec-n 2)) (+ i 1))))
+  (create-bin-num dec-n 1 0))
 
   
