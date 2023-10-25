@@ -75,7 +75,10 @@
 
 ;; Task 8
 
-;; ??? reverse 1 2 3 == reverse 2 3 append 1
+(define (reverse l)
+  (if (null? l)
+      '()
+      (append (reverse (cdr l)) (list (car l)))))
 
 
 
@@ -123,19 +126,16 @@
 
 ;; Task 12 -> 5
 
-(define (map-12 f l)
-  (define (map-12-i f l new-l)
-    (reduce (lambda (x y) (append new-l (list (f x)) y)) '() l))
-  (map-12-i f l '()))
+(define (map-121 f l)
+    (reduce (lambda (x y) (append '() (list (f x)) y)) '() l))
+
+
 
 ;; Task 12 -> 6
 
 (define (filter-12 p l)
-  (define (filter-12-i p l new-l)
-    (reduce (lambda (x y) (append new-l (if (p x)
-                                            (list x)
-                                            '()) y)) '() l))
-  (filter-12-i p l '()))
+    (reduce (lambda (x y) (append '() (if (p x) (list x) '()) y)) '() l))
+
 
 
 ;; Task 12 -> 11
