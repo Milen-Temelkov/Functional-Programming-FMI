@@ -44,12 +44,10 @@
 
 ;; Task 5
 
-(define (map f l)
-  (define (map-i f l new-l)
-    (if (null? l)
-        new-l
-        (map-i f (cdr l) (append new-l (list (f (car l)))))))
-  (map-i f l '()))
+(define (map-1 f l)
+  (if (null? l)
+      '()
+      (cons (f (car l)) (map f (cdr l)))))
 
 
 
@@ -122,21 +120,17 @@
 (define (reduce op init l)
   (if (null? l)
       init
-      (op (car l) (reduce op init (cdr l)))))
+      (op (car l) (reduce op init (cdr l))))) 
 
 ;; Task 12 -> 5
 
-(define (map-121 f l)
-    (reduce (lambda (x y) (append '() (list (f x)) y)) '() l))
-
-
+(define (map-12 f l)
+  (reduce (lambda (x y) (cons (f x) y)) '() l)) 
 
 ;; Task 12 -> 6
 
 (define (filter-12 p l)
-    (reduce (lambda (x y) (append '() (if (p x) (list x) '()) y)) '() l))
-
-
+  (reduce (lambda (x y) (if (p x) (cons x y) y)) '() l))
 
 ;; Task 12 -> 11
 
