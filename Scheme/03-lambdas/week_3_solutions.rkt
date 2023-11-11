@@ -68,13 +68,10 @@
 
 ;; Task 1
 
-(define (5< x) (< x 5))
-(define (5<= x) (<= x 5))
-
 (define (count p a b)
   (let ([predicate (lambda (p x) (if (p x) 1 0))])
                                      
-    (if (= (predicate p a) 0)
+    (if (> a b)
         0
         (+ (predicate p a) (count p (+ a 1) b)))))
 
@@ -93,8 +90,13 @@
           ((= a b) (predicate a))
           (else (any? p (+ a 1) b)))))
 
-(define (any-acc? p a b)
-  (< 0 (accumulate-i + 0 a b (lambda (a) (if (p a) 1 0)) 1+)))
+(define (acc-any? p a b)
+  (< 0 (count-acc p a b)))
+
+;; optimal solution
+
+(define (opt-any? p a b)
+  (accumulate-i (lambda (nv a) (or (p a) nv)) #f a b id 1+))
 
 
 
@@ -107,9 +109,13 @@
           ((= a b) (predicate a))
           (else (all? p (+ a 1) b)))))
 
-(define (all-acc? p a b)
-  (= (- b (- a 1)) (accumulate-i + 0 a b (lambda (a) (if (p a) 1 0)) 1+)))
+(define (acc-all? p a b)
+  (= (- b (- a 1)) (count-acc p a b)))
 
+;; optimal solution
+
+(define (opt-all? p a b)
+  (accumulate-i (lambda (nv a) (and (p a) nv)) #t a b id 1+))
 
 
 ;; Task 4
