@@ -128,14 +128,14 @@
 (define (bst? t)
   (if (or (t-empty? t) (leaf? t))
       #t
-      (and (and (if (not (t-empty? (t-left t)))
-                    (> (t-root t) (t-root (t-left t)))
-                    #t)
-                (if (not (t-empty? (t-right t)))
-                    (< (t-root t) (t-root (t-right t)))
-                    #t)
-                (bst? (t-left t))
-                (bst? (t-right t))))))
+      (and (if (not (t-empty? (t-left t)))
+               (> (t-root t) (t-root (t-left t)))
+               #t)
+           (if (not (t-empty? (t-right t)))
+               (< (t-root t) (t-root (t-right t)))
+               #t)
+           (bst? (t-left t))
+           (bst? (t-right t)))))
 
 
 
@@ -187,7 +187,7 @@
 (define bst (mk 5
                 (mk 3
                     (mkl 1)
-                    (mkl 4))
+                    (mkl 6))
                 (mk 8
                     (mk 7
                         (mkl 6)
